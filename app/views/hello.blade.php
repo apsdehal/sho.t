@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('heading')
-URL Shortener: aps.dev
+URL Shortener: sho.t
 @stop
 
 @section('form')
