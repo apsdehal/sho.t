@@ -17,26 +17,20 @@ Route::get('/',array('as'=>'home', function()
 }));
 
 Route::post('/',function()
-{
-	$data = Input::all();
+{	
+	$url = Input::get('url');
 
-	$rules = array (
-		'url'=>'required|url'
-		);
-	$validator = Validator::make($data, $rules);
+	$validate = Url::validate(array('url'=>$url));
 
-	if(true){
-
-		$url = Input::get('url');
+	if($validate == "Passed"){
 
 		$record = Url::whereUrl($url)->first();
 
-	if($record){
+		if($record){
 
 		return View::make('results')->with('shortened',$record->shortened);
-		}
-
 		
+			}		
 
 		$shortened = URL::get_unique_shortened_url();
 
@@ -45,20 +39,29 @@ Route::post('/',function()
 			'shortened'=>$shortened
 			));
 		if($success){
+
 			return View::make('results')->with('shortened',$shortened);
+		
 		} else {
-			return Redirect::route('home');
+		
+			return "failed";
 		}
 	} 
 
-	return Redirect::to('home')->withErrors($validator);
+	return Redirect::route('home')->withErrors($validate);
 });
 
 Route::get('/{url}', function($url){
+	
 	$record = Url::whereShortened($url)->first();
+	
 	if($record){
+	
 		return Redirect::to($record->url);
+	
 	} else {
+	
 		return Redirect::route('home');
+	
 	}
 });

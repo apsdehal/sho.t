@@ -9,15 +9,13 @@ URL Shortener: aps.dev
 	{{Form::open(array(
 		'url'=>'/',
 		'method'=>'post'
-		))}}
-	{{Form::label('url','Your URL')}}	
-	{{Form::text('url',null,array('placeholder'=>'Your long URL here'))}}
-	{{Form::submit('Short IT!')}}	
+		))}}	
+	{{Form::text('url',null,array('placeholder'=>'Your URL here',"autofocus"=>"autofocus"))}}
+	{{--Form::submit('Short IT!')--}}	
 	{{Form::close()}}
-	{{'<br/>'}}
 	
 	@if($errors->count()>0)
-	{{$errors->first('url')}}
-	@endif	
+	{{$errors->first('url','<p class="errors">:message</p>')}}
+	@endif
 
 @stop

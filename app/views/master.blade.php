@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>URL Shortener</title>
+	{{ HTML::style('css/main.css') }}	
 </head>
 <body>
 <h1>
